@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Editare inregistrare";
+    var emailRegex = @"/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/";
+}
+
+<form id="saveRecord" name="saveRecord" class="edit-panel" onsubmit="editRecordController.verifyIfVlarefExists();">
+    <div id="generalInformation">
+        <h3 class="details-header">Informatii generale inregistare</h3>
+        <div class="row fields-padding">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Numar inregistare: </label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" placeholder="Numar inmatriculare" id="nrImatriculare" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Nume client</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" placeholder="Nume client" id="clientName" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row fields-padding">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="email" placeholder="Email" type="email" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Numar telefon</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" id="phoneNumber" type="text" required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row fields-padding">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Tip masina</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" placeholder="Tip masina" id="vehicleType" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Tip inregistrare</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" placeholder="Ex: asigurare" id="registrationType" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row fields-padding">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Data expirare</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="date" placeholder="dd/MM/yyyy" id="expirationDate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <nav class="navbar navbar navbar-fixed-bottom">
+        <div class="container-fluid">
+            <div class="btn-group right-side">
+                <button type="submit" id="btnSaveDrive" onclick="editRecordController.validateAndSaveDrive(false)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Salvare</button>
+                <button type="submit" id="btnSaveDriveAndAddAnother" onclick="editRecordController.setDriveReuse(true)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Salvare si reutilizare</button>
+                <button type="button" onclick="editRecordController.cancelEdit();" id="btnCancelSaveDrive" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove"></span> Anulare</button>
+            </div>
+        </div>
+    </nav>
+</form>
+
+<script src="~/Scripts/Pages/editRecordController.js"></script>

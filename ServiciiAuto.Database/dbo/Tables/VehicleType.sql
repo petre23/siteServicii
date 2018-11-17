@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[VehicleType]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Name] NVARCHAR(300) NOT NULL
+)
