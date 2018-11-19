@@ -8,7 +8,7 @@
             url: "/Records/SaveRecord",
             data: record,
             success: function (res) {
-                debugger;
+                
             },
             error: function (jqXHR, textStatus, exception, errorThrown) {
                 $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
@@ -16,7 +16,7 @@
             }
         });
     },
-    getDrive: function () {
+    getRecord: function () {
         $.ajax({
             type: 'post',
             dataType: 'json',
@@ -54,22 +54,35 @@
 
         $("#estimatedConsumption").val("");
     },
-    initDrive: function () {
+    initRecord: function () {
         var url = new URL(window.location.href);
-        var driveId = editDriveController.getParameterByName("driveId", new URL(window.location.href));
-        if (driveId) {
-            editDriveController.getDrive();
+        var recordId = editRecordController.getParameterByName("recordId", new URL(window.location.href));
+        if (recordId) {
+            editRecordController.getRecord();
         } else {
-            editDriveController.setupNewDriveInfo();
-            setTimeout(function () { editDriveController.initControls(); }, 0);
+            editRecordController.setupNewRecordInfo();
+            setTimeout(function () { editRecordController.initControls(); }, 0);
         }
     },
+    setupNewRecordInfo: function () {
+        this.truckId = null;
+        $("#nrImatriculare").val("");
+        $("#clientName").val("");
+        $("#email").val("");
+        $("#phoneNumber").val("");
+        $("#vehicleType").val("");
+        $("#recordType").val("");
+        $("#expirationDate").val("");
+        $("#additionalInfo").val("");
+        $("#clientInformedStatus").val("");
+    },
     initControls: function (record) {
-        //$("#expirationData").datepicker({ dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
+        $("#expirationDate").datepicker({ dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
 
-        //$('#saveRecord').on('submit', function (e) {
-        //    e.preventDefault();
-        //});
+        $('#saveRecord').on('submit', function (e) {
+            debugger;
+            e.preventDefault();
+        });
     },
     cancelEdit: function () {
         if (this.confirmCancel()) {
@@ -86,7 +99,7 @@
         }
         return "";
     },
-    validateAndSaveDrive: function () {
+    validateAndSaveRecord: function () {
         var recordInfo = {
             Id: this.recordId,
             CarRegistartionNumber: $("#nrImatriculare").val(),
@@ -94,8 +107,10 @@
             Email: $("#email").val(),
             PhoneNumber: $("#phoneNumber").val(),
             VehicleTypeId: $("#vehicleType").val(),
-            RecordType: $("#registrationType").val(),
-            ExpirationDate: $("#expirationDate").val()
+            RecordType: $("#recordType").val(),
+            ExpirationDate: this.getCorrectDateFormat($("#expirationDate").val()),
+            AdditionalInfo: $("#additionalInfo").val(),
+            ClientInformedStatusId: $("#clientInformedStatus").val()
         };
         this.saveRecord(recordInfo);
     },
@@ -116,4 +131,4 @@
         this.reuseDrive = value;
     }
 };
-editRecordController.initControls();
+editRecordController.initRecord();

@@ -22,3 +22,22 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.fields-padding {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.details-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: grey;
+    border-bottom: 1px solid;
+}
+
+.edit-panel {
+    border: 1px solid #dfedf1;
+    padding: 5px;
+    height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

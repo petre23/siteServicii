@@ -26,6 +26,13 @@ namespace ServiciiAutoProject
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/cssGrid").Include(
+                  "~/Scripts/jsGrid/jsgrid-theme.css",
+                  "~/Scripts/jsGrid/jsgrid.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jsGrid").Include(
+                      "~/Scripts/jsGrid/jsgrid.js"));
         }
     }
 }

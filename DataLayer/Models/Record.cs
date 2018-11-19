@@ -32,5 +32,9 @@ namespace ServiciiAuto.DataLayer.Models
         public int VehicleTypeId { get; set; }
         [DataMember]
         public string VehicleTypeName { get; set; }
+        [DataMember]
+        public int ClientInformedStatusId { get; set; }
+        [DataMember]
+        public string ClientInformedStatusName { get; set; }
     }
 }

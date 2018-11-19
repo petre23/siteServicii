@@ -60,6 +60,7 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
     <Folder Include="dbo\StoredProcedures" />
+    <Folder Include="dbo\Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Records.sql" />
@@ -70,5 +71,13 @@
     <Build Include="dbo\StoredProcedures\DeleteRecords.sql" />
     <Build Include="dbo\StoredProcedures\SaveRecords.sql" />
     <Build Include="dbo\Tables\VehicleType.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\ClientInformedStatus.sql" />
+    <Build Include="dbo\StoredProcedures\GetRecordTypes.sql" />
+    <Build Include="dbo\StoredProcedures\GetVehicleTypes.sql" />
+    <Build Include="dbo\StoredProcedures\GetClientInformedStatueses.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dbo\Scripts\DefaultDataInsert.sql" />
   </ItemGroup>
 </Project>

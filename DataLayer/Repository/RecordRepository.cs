@@ -35,6 +35,7 @@ namespace ServiciiAuto.DataLayer.Repository
                             RecordTypeName = reader["RecordTypeName"].ToString(),
                             VehicleTypeId = int.Parse(reader["VehicleType"].ToString()),
                             VehicleTypeName = reader["VehicleTypeName"].ToString(),
+                            ClientInformedStatusName = reader["ClientInformedStatusName"].ToString(),
                         };
                         records.Add(record);
                     }
@@ -73,6 +74,8 @@ namespace ServiciiAuto.DataLayer.Repository
                             RecordTypeName = reader["RecordTypeName"].ToString(),
                             VehicleTypeId = int.Parse(reader["VehicleType"].ToString()),
                             VehicleTypeName = reader["VehicleTypeName"].ToString(),
+                            ClientInformedStatusId = int.Parse(reader["ClientInformedStatusId"].ToString()),
+                            ClientInformedStatusName = reader["ClientInformedStatusName"].ToString(),
                         };
                         records.Add(record);
                     }
@@ -90,8 +93,11 @@ namespace ServiciiAuto.DataLayer.Repository
                 using (SqlCommand cmd = new SqlCommand("SaveRecords", con))
                 {
                     var isNew = record.Id == Guid.Empty;
-                    record.Id = isNew ? Guid.NewGuid():record.Id;
+                    record.Id = isNew ? Guid.NewGuid() : record.Id;
+                    record.CreationDate = isNew ? DateTime.Now : record.CreationDate;
+
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IsNew", isNew);
                     cmd.Parameters.AddWithValue("@RecordId", record.Id);
                     cmd.Parameters.AddWithValue("@PhoneNumber", record.PhoneNumber);
                     cmd.Parameters.AddWithValue("@ExpirationDate", record.ExpirationDate);
@@ -103,6 +109,8 @@ namespace ServiciiAuto.DataLayer.Repository
                     cmd.Parameters.AddWithValue("@ClientName", record.ClientName);
                     cmd.Parameters.AddWithValue("@RecordType", record.RecordType);
                     cmd.Parameters.AddWithValue("@VehicleTypeId", record.VehicleTypeId);
+                    cmd.Parameters.AddWithValue("@ClientInformedStatusId", record.ClientInformedStatusId);
+                    cmd.Parameters.AddWithValue("@ModifiedByUser", Guid.Parse("D1839C31-D29F-4381-A105-BF3B82C664EE"));
                     con.Open();
                     var reader = cmd.ExecuteNonQuery();
                     con.Close();

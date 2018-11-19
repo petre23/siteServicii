@@ -10,7 +10,9 @@
 	@Email NVARCHAR(255) = NULL,
 	@PhoneNumber NVARCHAR(255),
 	@ClientName NVARCHAR(300),
-	@VehicleTypeId INT
+	@VehicleTypeId INT,
+	@ModifiedByUser UNIQUEIDENTIFIER,
+	@ClientInformedStatusId int
 AS
 BEGIN
 	
@@ -41,7 +43,7 @@ BEGIN
 	
 	IF(@IsNew = 1)
 	BEGIN
-		INSERT INTO dbo.Records 
+		INSERT INTO dbo.Records(Id,ExpirationDate,CreationDate,CarRegistartionNumber,AdditionalInfo,ClientId,RecordType,VehicleType,ModifiedByUser,ClientInformedStatus)
 		VALUES
 		(
 			@RecordId,
@@ -51,7 +53,9 @@ BEGIN
 			@AdditionalInfo,
 			@newClient,
 			@RecordType,
-			@VehicleTypeId
+			@VehicleTypeId,
+			@ModifiedByUser,
+			@ClientInformedStatusId
 		);
 	END
 	ELSE
@@ -62,8 +66,11 @@ BEGIN
 			CarRegistartionNumber = @CarRegistartionNumber,
 			AdditionalInfo = @AdditionalInfo,
 			ClientId = @ClientId,
-			RecordType = @RecordId,
-			VehicleType = @VehicleTypeId
+			RecordType = @RecordType,
+			VehicleType = @VehicleTypeId,
+			ModifiedByUser = @ModifiedByUser,
+			ClientInformedStatus = @ClientInformedStatusId
 		WHERE Id = @RecordId
 	END
 END
+GO
