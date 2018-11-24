@@ -44,7 +44,7 @@ var recordsController =
             fields: [
                 { name: "Id", title: 'Id', type: "text", css: "hide" },
                 { name: "CarRegistartionNumber", title: 'Numar Inmatriculare', type: "text", width: 80 },
-                { name: "ExpirationDate", title: 'Data expirare', type: "text", width: 80 },
+                { name: "ExpirationDateString", title: 'Data expirare', type: "text", width: 80 },
                 { name: "RecordTypeName", title: 'Tip inregistrare', type: "text", width: 80 },
                 { name: "VehicleTypeName", title: 'Tip vehicul', type: "text", width: 80 },
                 { name: "AdditionalInfo", title: 'Informatii aditionale', type: "text", width: 80 }
@@ -52,11 +52,11 @@ var recordsController =
         });
     },
     addNewRecord: function () {
-        window.location = "/Record/EditRecord";
+        window.location = "/Records/EditRecord";
     },
     editRecord: function () {
         if (recordsController.selectedRecord) {
-            window.location = "/Record/EditRecord?recordId=" + recordsController.selectedRecord;
+            window.location = "/Records/EditRecord?recordId=" + recordsController.selectedRecord;
         }
     },
     deleteRercord: function () {
@@ -64,7 +64,7 @@ var recordsController =
             $.ajax({
                 type: 'post',
                 dataType: 'json',
-                url: "/Record/DeleteRecord",
+                url: "/Records/DeleteRecord",
                 data: { recordId: editRecordController.selectedRecord },
                 success: function (res) {
                     recordsController.getRecords();

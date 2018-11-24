@@ -8,6 +8,7 @@ BEGIN
 		   r.CreationDate,
 		   r.ExpirationDate,
 		   r.ClientId,
+		   c.Name as ClientName,
 		   r.RecordType,
 		   c.PhoneNumber,
 		   c.Email,

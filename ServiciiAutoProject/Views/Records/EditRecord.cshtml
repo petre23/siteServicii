@@ -16,7 +16,7 @@
                                     <label>Numar inmatriculare: </label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" placeholder="Numar inmatriculare" id="nrImatriculare" type="text" required/>
+                                    <input class="form-control" placeholder="Numar inmatriculare" id="nrImatriculare" type="text" required />
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                     <label>Nume client</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" placeholder="Nume client" id="clientName" type="text" required/>
+                                    <input class="form-control" placeholder="Nume client" id="clientName" type="text" required />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                     <label>Email</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" id="email" placeholder="Email" type="email" pattern="@emailRegex"/>
+                                    <input class="form-control" id="email" placeholder="Email" type="email" pattern="@emailRegex" />
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <label>Numar telefon</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" id="phoneNumber" type="tel" maxlength="10" required/>
+                                    <input class="form-control" id="phoneNumber" type="tel" maxlength="10" required />
                                 </div>
                             </div>
                         </div>
@@ -79,9 +79,9 @@
                                     <select class="form-control" placeholder="Tip inregistrare" id="recordType" required>
                                         <option selected disabled hidden style='display: none' value=''></option>
                                         @foreach (var record in ViewBag.RecordTypes)
-                                                                                {
-                                        <option value="@record.Id" id="@record.Id">@record.TypeName</option>
-                                                                                }
+                                        {
+                                            <option value="@record.Id" id="@record.Id">@record.TypeName</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -97,9 +97,9 @@
                                     <select class="form-control" placeholder="Tip vehicul" id="vehicleType" required>
                                         <option selected disabled hidden style='display: none' value=''></option>
                                         @foreach (var vehicle in ViewBag.VehicleTypes)
-                                                                                {
-                                        <option value="@vehicle.Id" id="@vehicle.Id">@vehicle.Name</option>
-                                                                                }
+                                        {
+                                            <option value="@vehicle.Id" id="@vehicle.Id">@vehicle.Name</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -127,16 +127,11 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-6">
-                                    <label>Status anuntare client</label>
+                                    <label>Informatii aditionale</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control" placeholder="Tip inregistarre" id="clientInformedStatus">
-                                        <option selected disabled hidden style='display: none' value=''></option>
-                                        @foreach (var clientInformedStatus in ViewBag.ClientInformedStatueses)
-                                                                                {
-                                        <option value="@clientInformedStatus.Id" id="@clientInformedStatus.Id">@clientInformedStatus.StatusName</option>
-                                                                                }
-                                    </select>
+                                    <textarea class="form-control" rows="3" autocomplete="off" id="additionalInfo">
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -150,32 +145,46 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12">
+                                <div class="col-md-6"></div>
                                 <div class="col-md-6">
-                                    <label>Informatii aditionale</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <textarea class="form-control" rows="3" autocomplete="off" id="additionalInfo">
-                                    </textarea>
+                                    <button type="button" id="btnInformCustomer" onclick="editRecordController.sendSMSMessageToCustomer()" class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span> Trimite SMS informare</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <label>Status anuntare client</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control" placeholder="Tip inregistarre" id="clientInformedStatus">
+                                        <option selected disabled hidden style='display: none' value=''></option>
+                                        @foreach (var clientInformedStatus in ViewBag.ClientInformedStatueses)
+                                        {
+                                            <option value="@clientInformedStatus.Id" id="@clientInformedStatus.Id">@clientInformedStatus.StatusName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <br>
-    <nav class="navbar navbar navbar-fixed-bottom">
-        <div class="container-fluid">
+    <div class="row" id="saveButtons">
+        <div class="col-sm-6 col-lg-6 col-md-6"></div>
+        <div class="col-sm-6 col-lg-6 col-md-6">
             <div class="btn-group right-side">
                 <button type="submit" id="btnSaveRecord" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Salvare</button>
-                @*<button type="submit" id="btnSaveDriveAndAddAnother" onclick="editRecordController.setDriveReuse(true)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Salvare si reutilizare</button>*@
+                <button type="submit" id="btnSaveRecordAndAddAnother" onclick="editRecordController.saveRecordAndAddNew();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Salvare si reutilizare</button>
                 <button type="button" onclick="editRecordController.cancelEdit();" id="btnCancelSaveDrive" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove"></span> Anulare</button>
             </div>
         </div>
-    </nav>
+    </div>
 </form>
 
 <script src="~/Scripts/Pages/editRecordController.js"></script>

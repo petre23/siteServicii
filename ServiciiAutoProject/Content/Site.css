@@ -41,3 +41,11 @@ textarea {
     overflow-y: auto;
     overflow-x: hidden;
 }
+.right-side {
+    float: right;
+    right: 2%;
+}
+.selected-row > td {
+    background: #c4e2ff !important;
+    border-color: #c4e2ff !important;
+}

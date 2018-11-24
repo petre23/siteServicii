@@ -1,5 +1,6 @@
 ﻿var editRecordController = {
     recordId: null,
+    clientId: null,
     reuseRecord: false,
     saveRecord: function (record) {
         $.ajax({
@@ -20,15 +21,15 @@
         $.ajax({
             type: 'post',
             dataType: 'json',
-            url: "/Drive/GetDrive",
+            url: "/Records/GetRecordsById",
             data: {
-                idDrive: this.getParameterByName("driveId", new URL(window.location.href))
+                recordId: this.getParameterByName("recordId", new URL(window.location.href))
             },
             success: function (res) {
-                editDriveController.driveId = res.drive.Id;
-                var drive = res.drive;
-                editDriveController.setDriveDetails(drive);
-                editDriveController.initControls(drive);
+                editRecordController.recordId = res.record.Id;
+                var record = res.record;
+                editRecordController.setRecordDetails(record);
+                editRecordController.initControls(record);
             },
             error: function (jqXHR, textStatus, exception, errorThrown) {
                 $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
@@ -36,9 +37,17 @@
             }
         });
     },
-    setDriveDetails: function (drive) {
-
-        $("#estimatedConsumption").val(drive.EstimatedConsumption);
+    setRecordDetails: function (record) {
+        $("#nrImatriculare").val(record.CarRegistartionNumber);
+        $("#clientName").val(record.ClientName);
+        $("#email").val(record.Email);
+        $("#phoneNumber").val(record.PhoneNumber);
+        $("#vehicleType").val(record.VehicleTypeId);
+        $("#recordType").val(record.RecordType);
+        $("#expirationDate").val(record.ExpirationDateString);
+        $("#additionalInfo").val(record.AdditionalInfo);
+        $("#clientInformedStatus").val(record.ClientInformedStatusId);
+        editRecordController.clientId = record.ClientId;
     },
     getParameterByName: function (name, url) {
         if (!url) url = window.location.href;
@@ -52,7 +61,15 @@
     setupNewDriveInfo: function () {
         this.driveId = null;
 
-        $("#estimatedConsumption").val("");
+        $("#nrImatriculare").val("");
+        $("#clientName").val("");
+        $("#email").val("");
+        $("#phoneNumber").val("");
+        $("#vehicleType").val("");
+        $("#recordType").val("");
+        $("#expirationDate").val("");
+        $("#additionalInfo").val("");
+        $("#clientInformedStatus").val("");
     },
     initRecord: function () {
         var url = new URL(window.location.href);
@@ -65,7 +82,7 @@
         }
     },
     setupNewRecordInfo: function () {
-        this.truckId = null;
+        this.recordId = null;
         $("#nrImatriculare").val("");
         $("#clientName").val("");
         $("#email").val("");
@@ -80,7 +97,6 @@
         $("#expirationDate").datepicker({ dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true });
 
         $('#saveRecord').on('submit', function (e) {
-            debugger;
             e.preventDefault();
         });
     },
@@ -103,6 +119,7 @@
         var recordInfo = {
             Id: this.recordId,
             CarRegistartionNumber: $("#nrImatriculare").val(),
+            ClientId: editRecordController.clientId,
             ClientName: $("#clientName").val(),
             Email: $("#email").val(),
             PhoneNumber: $("#phoneNumber").val(),
@@ -129,6 +146,39 @@
     },
     setRecordReuse: function (value) {
         this.reuseDrive = value;
+    },
+    sendSMSMessageToCustomer: function () {
+        var recordInfo = {
+            Id: this.recordId,
+            CarRegistartionNumber: $("#nrImatriculare").val(),
+            ClientId: editRecordController.clientId,
+            ClientName: $("#clientName").val(),
+            Email: $("#email").val(),
+            PhoneNumber: $("#phoneNumber").val(),
+            VehicleTypeId: $("#vehicleType").val(),
+            RecordType: $("#recordType").val(),
+            ExpirationDate: this.getCorrectDateFormat($("#expirationDate").val()),
+            AdditionalInfo: $("#additionalInfo").val(),
+            ClientInformedStatusId: $("#clientInformedStatus").val()
+        };
+        editRecordController.sendSMSToCustomer(recordInfo);
+    },
+    sendSMSToCustomer: function (recordInfo) {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: "/Records/SendMessageToClient",
+            data: {
+                record: recordInfo
+            },
+            success: function (res) {
+                //sms send message
+            },
+            error: function (jqXHR, textStatus, exception, errorThrown) {
+                $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
+                $("#errorDialog").dialog("open");
+            }
+        });
     }
 };
 editRecordController.initRecord();

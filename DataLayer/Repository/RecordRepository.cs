@@ -94,7 +94,7 @@ namespace ServiciiAuto.DataLayer.Repository
                 {
                     var isNew = record.Id == Guid.Empty;
                     record.Id = isNew ? Guid.NewGuid() : record.Id;
-                    record.CreationDate = isNew ? DateTime.Now : record.CreationDate;
+                    record.CreationDate = DateTime.Now;
 
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@IsNew", isNew);

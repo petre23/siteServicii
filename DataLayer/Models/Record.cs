@@ -15,6 +15,8 @@ namespace ServiciiAuto.DataLayer.Models
         [DataMember]
         public DateTime ExpirationDate { get; set; }
         [DataMember]
+        public string ExpirationDateString { get { return ExpirationDate.ToString("dd/MM/yyyy"); } }
+        [DataMember]
         public string CarRegistartionNumber { get; set; }
         [DataMember]
         public string AdditionalInfo { get; set; }

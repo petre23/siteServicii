@@ -1,4 +1,5 @@
-﻿using ServiciiAuto.DataLayer.Models;
+﻿using Nexmo.Api;
+using ServiciiAuto.DataLayer.Models;
 using ServiciiAuto.DataLayer.Repository;
 using System;
 using System.Web.Mvc;
@@ -37,7 +38,33 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult GetRecordsById(Guid recordId)
         {
-            return Json(new { selectedRecord = _recordRepository.GetRecordById(Guid.Empty) });
+            return Json(new { record = _recordRepository.GetRecordById(recordId) });
+        }
+
+        public ActionResult SendMessageToClient(Record record)
+        {
+            try
+            {
+                var messageForClient = string.Format($"Buna ziua dl/dna {record.ClientName}. \n\r Va informam ca asigurarea dvs urmeaza sa expire pe data de {record.ExpirationDateString}. \n\r Va asteptam la noi pentru a prelungi valabilitatea acesteia. O zi buna. Echipa MobaTehnic. ");
+
+                var client = new Nexmo.Api.Client(creds: new Nexmo.Api.Request.Credentials
+                {
+                    ApiKey = "e12689ef",
+                    ApiSecret = "P9iflKUmKi9lbjkE"
+                });
+                var results = client.SMS.Send(request: new SMS.SMSRequest
+                {
+                    from = "MobaTehnic",
+                    to = "40760073998",
+                    text = string.Format($"Va informam ca asigurarea dvs urmeaza sa expire pe data de {record.ExpirationDateString}. \n\r O zi buna. Echipa MobaTehnic.")
+                });
+
+                return Json(new { messageSent = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { messageSent = false });
+            }
         }
     }
 }
