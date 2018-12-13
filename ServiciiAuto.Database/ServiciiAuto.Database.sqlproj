@@ -79,5 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scripts\DefaultDataInsert.sql" />
+    <None Include="dbo\StoredProcedures\Login.sql" />
   </ItemGroup>
 </Project>
