@@ -193,6 +193,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RecordsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -228,6 +229,8 @@
     <Content Include="Scripts\jsGrid\jsgrid.min.css" />
     <Content Include="Scripts\jsGrid\jsgrid.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pages\clientsController.js" />
+    <Content Include="Scripts\Pages\editClientController.js" />
     <Content Include="Scripts\Pages\editRecordController.js" />
     <Content Include="Scripts\Pages\loginController.js" />
     <Content Include="Scripts\Pages\recordsController.js" />
@@ -247,6 +250,8 @@
     <Content Include="Views\Records\Index.cshtml" />
     <Content Include="Views\Records\EditRecord.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Client\EditClient.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Clienti";
+}
+<nav class="navbar navbar-inverse nav-bar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand nav-bar-text" href="#">@ViewBag.Title</a>
+        </div>
+        <div class="button-group right-side">
+            <div class="btn-group">
+                <button class="btn btn-success" id="addButton" onclick="clientsController.addNewClient();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
+                <button class="btn btn-success" id="editButton" disabled onclick="clientsController.editClient();"><span class="glyphicon glyphicon glyphicon-edit"></span> Editeaza</button>
+                <button class="btn btn-danger" id="deleteButton" disabled onclick="clientsController.deleteClient();"><span class="glyphicon glyphicon glyphicon-remove"></span> Sterge</button>
+            </div>
+            @*@Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "no-text-decoration btn btn-primary glyphicon glyphicon-log-out" })*@
+        </div>
+
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-12">
+        <div id="clientsGrid"></div>
+    </div>
+</div>
+
+<script src="~/Scripts/Pages/clientsController.js"></script>
