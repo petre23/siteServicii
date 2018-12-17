@@ -9,7 +9,7 @@
             url: "/Records/SaveRecord",
             data: record,
             success: function (res) {
-                
+                window.location = "/Records/Index";
             },
             error: function (jqXHR, textStatus, exception, errorThrown) {
                 $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
