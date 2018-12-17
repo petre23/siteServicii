@@ -27,7 +27,7 @@ BEGIN
 	INNER JOIN dbo.RecordTypes rt ON rt.Id = r.RecordType
 	INNER JOIN dbo.VehicleType vt ON vt.Id = r.VehicleType
 	INNER JOIN dbo.Users u ON u.Id = r.ModifiedByUser
-	INNER JOIN dbo.ClientInformedStatus cis ON cis.Id = r.ClientInformedStatus
+	LEFT JOIN dbo.ClientInformedStatus cis ON cis.Id = r.ClientInformedStatus
 	--WHERE (@recordType IS NULL OR r.RecordType = @recordType)
 	--AND (r.ExpirationDate BETWEEN @startDate AND @endDate)
 END

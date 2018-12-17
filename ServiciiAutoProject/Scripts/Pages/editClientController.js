@@ -7,7 +7,7 @@
             url: "/Client/SaveClient",
             data: client,
             success: function (res) {
-
+                window.location = "/Client/Index";
             },
             error: function (jqXHR, textStatus, exception, errorThrown) {
                 $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
@@ -78,7 +78,7 @@
     validateAndSaveClient: function () {
         var clientInfo = {
             Id: this.clientId,
-            ClientName: $("#name").val(),
+            Name: $("#name").val(),
             Email: $("#email").val(),
             PhoneNumber: $("#phoneNumber").val()
         };

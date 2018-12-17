@@ -12,7 +12,7 @@
 	@ClientName NVARCHAR(300),
 	@VehicleTypeId INT,
 	@ModifiedByUser UNIQUEIDENTIFIER,
-	@ClientInformedStatusId int
+	@ClientInformedStatusId int = NULL
 AS
 BEGIN
 	
@@ -37,6 +37,7 @@ BEGIN
 				Name = @ClientName,
 				Email = @Email,
 				PhoneNumber = @PhoneNumber
+			WHERE Id = @ClientId
 		END
 		SET @newClient = @ClientId;
 	END

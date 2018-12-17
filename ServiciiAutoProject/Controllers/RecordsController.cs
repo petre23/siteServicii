@@ -21,6 +21,7 @@ namespace ServiciiAutoProject.Controllers
             ViewBag.RecordTypes = _enumsRepository.GetRecordTypes();
             ViewBag.VehicleTypes = _enumsRepository.GetVehicleTypes();
             ViewBag.ClientInformedStatueses = _enumsRepository.GetClientInformedStatueses();
+            ViewBag.ClientsForDropDown = new ClientRepository().GetAllClients();
 
             return View();
         }

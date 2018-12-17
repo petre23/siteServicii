@@ -49,3 +49,9 @@ textarea {
     background: #c4e2ff !important;
     border-color: #c4e2ff !important;
 }
+
+.page-title {
+    text-align:center;
+    font-size: 15px;
+    color: white;
+}

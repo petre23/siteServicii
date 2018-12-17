@@ -28,7 +28,14 @@
                                     <label>Nume client</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <input class="form-control" placeholder="Nume client" id="clientName" type="text" required />
+                                    <input class="form-control" list="clientList" name="clientName" id="clientName" placeholder="Nume client" required>
+                                    <datalist name="clientList" id="clientList">
+                                        <option selected disabled hidden style='display: none' value=''></option>
+                                        @foreach (var client in ViewBag.ClientsForDropDown)
+                                        {
+                                            <option value="@client.Name"></option>
+                                        }
+                                    </datalist>
                                 </div>
                             </div>
                         </div>

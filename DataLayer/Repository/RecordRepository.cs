@@ -74,7 +74,7 @@ namespace ServiciiAuto.DataLayer.Repository
                             RecordTypeName = reader["RecordTypeName"].ToString(),
                             VehicleTypeId = int.Parse(reader["VehicleType"].ToString()),
                             VehicleTypeName = reader["VehicleTypeName"].ToString(),
-                            ClientInformedStatusId = int.Parse(reader["ClientInformedStatusId"].ToString()),
+                            ClientInformedStatusId = string.IsNullOrEmpty(reader["ClientInformedStatusId"].ToString()) ? (int?)null : int.Parse(reader["ClientInformedStatusId"].ToString()),
                             ClientInformedStatusName = reader["ClientInformedStatusName"].ToString(),
                         };
                         records.Add(record);

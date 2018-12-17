@@ -76,6 +76,9 @@
     <Build Include="dbo\StoredProcedures\GetRecordTypes.sql" />
     <Build Include="dbo\StoredProcedures\GetVehicleTypes.sql" />
     <Build Include="dbo\StoredProcedures\GetClientInformedStatueses.sql" />
+    <Build Include="dbo\StoredProcedures\GetAllClients.sql" />
+    <Build Include="dbo\StoredProcedures\GetClientById.sql" />
+    <Build Include="dbo\StoredProcedures\SaveClient.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scripts\DefaultDataInsert.sql" />
