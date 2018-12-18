@@ -10,6 +10,7 @@ namespace ServiciiAutoProject.Controllers
     {
         private readonly RecordRepository _recordRepository = new RecordRepository();
         private readonly EnumsRepository _enumsRepository = new EnumsRepository();
+        private readonly ClientRepository _clientRepository = new ClientRepository();
 
         public ActionResult Index()
         {
@@ -21,7 +22,7 @@ namespace ServiciiAutoProject.Controllers
             ViewBag.RecordTypes = _enumsRepository.GetRecordTypes();
             ViewBag.VehicleTypes = _enumsRepository.GetVehicleTypes();
             ViewBag.ClientInformedStatueses = _enumsRepository.GetClientInformedStatueses();
-            ViewBag.ClientsForDropDown = new ClientRepository().GetAllClients();
+            ViewBag.ClientsForDropDown = _clientRepository.GetAllClients();
 
             return View();
         }
@@ -40,6 +41,11 @@ namespace ServiciiAutoProject.Controllers
         public ActionResult GetRecordsById(Guid recordId)
         {
             return Json(new { record = _recordRepository.GetRecordById(recordId) });
+        }
+
+        public ActionResult GetClientData(Guid clientId)
+        {
+            return Json(new { clientData = _clientRepository.GetClientById(clientId) });
         }
 
         public ActionResult SendMessageToClient(Record record)

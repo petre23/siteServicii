@@ -66,7 +66,7 @@ BEGIN
 			CreationDate = @CreationDate,
 			CarRegistartionNumber = @CarRegistartionNumber,
 			AdditionalInfo = @AdditionalInfo,
-			ClientId = @ClientId,
+			ClientId = @newClient,
 			RecordType = @RecordType,
 			VehicleType = @VehicleTypeId,
 			ModifiedByUser = @ModifiedByUser,

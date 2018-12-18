@@ -37,6 +37,25 @@
             }
         });
     },
+    getClientData: function () {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: "/Records/GetClientData",
+            data: {
+                clientId: editRecordController.clientId
+            },
+            success: function (res) {
+                $("#clientName").val(res.clientData.Name);
+                $("#email").val(res.clientData.Email);
+                $("#phoneNumber").val(res.clientData.PhoneNumber);
+            },
+            error: function (jqXHR, textStatus, exception, errorThrown) {
+                $("#errorDialog").html(JSON.parse(jqXHR.responseText).error);
+                $("#errorDialog").dialog("open");
+            }
+        });
+    },
     setRecordDetails: function (record) {
         $("#nrImatriculare").val(record.CarRegistartionNumber);
         $("#clientName").val(record.ClientName);
@@ -47,7 +66,6 @@
         $("#expirationDate").val(record.ExpirationDateString);
         $("#additionalInfo").val(record.AdditionalInfo);
         $("#clientInformedStatus").val(record.ClientInformedStatusId);
-        editRecordController.clientId = record.ClientId;
     },
     getParameterByName: function (name, url) {
         if (!url) url = window.location.href;
@@ -80,6 +98,23 @@
             editRecordController.setupNewRecordInfo();
             setTimeout(function () { editRecordController.initControls(); }, 0);
         }
+
+        $('input[list]').on('input', function (e) {
+            var $input = $(e.target),
+                $options = $('#' + $input.attr('list') + ' option'),
+                label = $input.val();
+
+            for (var i = 0; i < $options.length; i++) {
+                var $option = $options.eq(i);
+
+                if ($option.text() === label) {
+                    editRecordController.clientId = $option.attr('data-value');
+                    debugger;
+                    editRecordController.getClientData();
+                    break;
+                }
+            }
+        });
     },
     setupNewRecordInfo: function () {
         this.recordId = null;
@@ -130,10 +165,6 @@
             ClientInformedStatusId: $("#clientInformedStatus").val()
         };
         this.saveRecord(recordInfo);
-    },
-    setTruckForWorker: function () {
-        var truckId = $("#" + $("#driver").val()).attr("truck-id");
-        $("#truck").val(truckId);
     },
     confirmCancel: function () {
         var txt;
