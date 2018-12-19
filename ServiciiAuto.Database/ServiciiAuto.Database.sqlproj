@@ -79,6 +79,7 @@
     <Build Include="dbo\StoredProcedures\GetAllClients.sql" />
     <Build Include="dbo\StoredProcedures\GetClientById.sql" />
     <Build Include="dbo\StoredProcedures\SaveClient.sql" />
+    <Build Include="dbo\StoredProcedures\SaveImportedRecord.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scripts\DefaultDataInsert.sql" />

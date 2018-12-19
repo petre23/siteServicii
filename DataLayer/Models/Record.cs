@@ -21,7 +21,7 @@ namespace ServiciiAuto.DataLayer.Models
         [DataMember]
         public string AdditionalInfo { get; set; }
         [DataMember]
-        public int RecordType { get; set; }
+        public int? RecordType { get; set; }
         [DataMember]
         public string ClientName { get; set; }
         [DataMember]
@@ -31,7 +31,7 @@ namespace ServiciiAuto.DataLayer.Models
         [DataMember]
         public string RecordTypeName { get; set; }
         [DataMember]
-        public int VehicleTypeId { get; set; }
+        public int? VehicleTypeId { get; set; }
         [DataMember]
         public string VehicleTypeName { get; set; }
         [DataMember]

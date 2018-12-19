@@ -1,6 +1,7 @@
 ﻿using Nexmo.Api;
 using ServiciiAuto.DataLayer.Models;
 using ServiciiAuto.DataLayer.Repository;
+using ServiciiAutoProject.Helpers;
 using System;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult Index()
         {
+            //ImportRecords(@"C:\Users\petre\Downloads\export_365.csv");
             return View();
         }
 
@@ -46,6 +48,17 @@ namespace ServiciiAutoProject.Controllers
         public ActionResult GetClientData(Guid clientId)
         {
             return Json(new { clientData = _clientRepository.GetClientById(clientId) });
+        }
+
+        public ActionResult ImportRecords(string filePath)
+        {
+            var records = new CsvReaderHelper().GetRecordsFromCsv(filePath);
+            foreach (var record in records)
+            {
+                _recordRepository.SaveImportedRecord(record);
+            }
+
+            return Json(new { noRecords = records.Count });
         }
 
         public ActionResult SendMessageToClient(Record record)

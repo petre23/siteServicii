@@ -14,7 +14,7 @@ BEGIN
 		   r.RecordType,
 		   c.PhoneNumber,
 		   c.Email,
-		   c.Name as RecordTypeName,
+		   rt.TypeName as RecordTypeName,
 		   rt.TypeName,
 		   r.VehicleType,
 		   vt.Name as VehicleTypeName,
@@ -23,9 +23,9 @@ BEGIN
 		   r.ClientInformedStatus AS ClientInformedStatusId,
 		   cis.StatusName as ClientInformedStatusName
 	FROM dbo.Records r
-	INNER JOIN dbo.Clients c ON c.Id = r.ClientId
-	INNER JOIN dbo.RecordTypes rt ON rt.Id = r.RecordType
-	INNER JOIN dbo.VehicleType vt ON vt.Id = r.VehicleType
+	LEFT JOIN dbo.Clients c ON c.Id = r.ClientId
+	LEFT JOIN dbo.RecordTypes rt ON rt.Id = r.RecordType
+	LEFT JOIN dbo.VehicleType vt ON vt.Id = r.VehicleType
 	INNER JOIN dbo.Users u ON u.Id = r.ModifiedByUser
 	LEFT JOIN dbo.ClientInformedStatus cis ON cis.Id = r.ClientInformedStatus
 	--WHERE (@recordType IS NULL OR r.RecordType = @recordType)

@@ -3,6 +3,9 @@
 }
 <nav class="navbar navbar-inverse nav-bar">
     <div class="container-fluid">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <button class="btn btn-danger" id="btnSelectFile" onclick="recordsController.selectCsvFileToUpload();"><span class="glyphicon glyphicon glyphicon-upload"></span> Incarca date</button>
+        </div>
         <div class="button-group right-side">
             <div class="btn-group">
                 <button class="btn btn-success" id="addButton" onclick="recordsController.addNewRecord();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
@@ -17,6 +20,23 @@
 <div class="row">
     <div class="col-md-12">
         <div id="recordsGrid"></div>
+    </div>
+</div>
+
+<button id="modalButton" type="button" class="hidden" data-toggle="modal" data-target="#loadingModal"></button>
+<div class="modal fade" id="loadingModal" role="dialog" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Incarcare date</h5>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                    Incarcare date, va rugam asteptati. Acest proces poate dura mai multe minute.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
