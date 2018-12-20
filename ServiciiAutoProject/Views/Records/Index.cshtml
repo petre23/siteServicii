@@ -1,13 +1,13 @@
 ﻿@{
     ViewBag.Title = "Inregistrari";
 }
-<nav class="navbar navbar-inverse nav-bar">
+<nav class="navbar navbar-inverse nav-bar" style="background:#1E3A6F">
     <div class="container-fluid">
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <button class="btn btn-danger" id="btnSelectFile" onclick="recordsController.selectCsvFileToUpload();"><span class="glyphicon glyphicon glyphicon-upload"></span> Incarca date</button>
+            <button class="btn btn-danger" id="btnSelectFile" style="margin-top:7px;" onclick="recordsController.selectCsvFileToUpload();"><span class="glyphicon glyphicon glyphicon-upload"></span> Incarca date</button>
         </div>
         <div class="button-group right-side">
-            <div class="btn-group">
+            <div class="btn-group" style="padding-right:15px;margin-top:7px;">
                 <button class="btn btn-success" id="addButton" onclick="recordsController.addNewRecord();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
                 <button class="btn btn-success" id="editButton" disabled onclick="recordsController.editRecord();"><span class="glyphicon glyphicon glyphicon-edit"></span> Editeaza</button>
                 <button class="btn btn-danger" id="deleteButton" disabled onclick="recordsController.deleteRercord();"><span class="glyphicon glyphicon glyphicon-remove"></span> Sterge</button>

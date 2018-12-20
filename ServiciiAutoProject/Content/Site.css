@@ -52,8 +52,9 @@ textarea {
 
 .page-title {
     text-align:center;
-    font-size: 15px;
+    font-size: 25px;
     color: white;
+    padding-top:10px;
 }
 
 .jsgrid {

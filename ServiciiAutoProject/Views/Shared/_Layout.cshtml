@@ -18,15 +18,20 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-collapse collapse">
+    <div id="navbar">
+        <nav class="navbar navbar-inverse navbar-fixed-top" style="background:#00004c;">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
+                    <p class="navbar-btn"><a href="#" class="btn btn-warning">Notificari <span class="glyphicon glyphicon-bell"></span></a></p>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Inregistrari", "Index", "Records")</li>
                     <li>@Html.ActionLink("Clienti", "Index", "Client")</li>
                 </ul>
                 <div class="page-title">@ViewBag.Title</div>
             </div>
-        </div>
+        </nav>
+    </div>
     <div class="container body-content">
         @RenderBody()
     </div>

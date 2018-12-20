@@ -1,10 +1,10 @@
 ﻿@{
     ViewBag.Title = "Clienti";
 }
-<nav class="navbar navbar-inverse nav-bar">
+<nav class="navbar navbar-inverse nav-bar" style="background:#1E3A6F;">
     <div class="container-fluid">
         <div class="button-group right-side">
-            <div class="btn-group">
+            <div class="btn-group" style="margin-top:7px; padding-right:15px;">
                 <button class="btn btn-success" id="addButton" onclick="clientsController.addNewClient();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
                 <button class="btn btn-success" id="editButton" disabled onclick="clientsController.editClient();"><span class="glyphicon glyphicon glyphicon-edit"></span> Editeaza</button>
                 <button class="btn btn-danger" id="deleteButton" disabled onclick="clientsController.deleteClient();"><span class="glyphicon glyphicon glyphicon-remove"></span> Sterge</button>
