@@ -62,6 +62,8 @@ namespace ServiciiAutoProject.Helpers
             var phoneNumber = phoneNumberFromNotes.Length == 10 ? phoneNumberFromNotes : phoneNumberFromNotes.Length > 10 ? String.Concat(phoneNumberFromNotes.Take(10)) : string.Format("0{0}", phoneNumberFromNotes);
             var clientName = clientNameFromNotes.Contains('(') || clientNameFromNotes.Contains(')')  ? string.Empty: clientNameFromNotes;
 
+            phoneNumber = phoneNumber.Length < 9 ? string.Empty : phoneNumber;
+
             return new Client() { Name = clientName, PhoneNumber = phoneNumber };
         }
 
@@ -72,7 +74,7 @@ namespace ServiciiAutoProject.Helpers
 
             foreach (var part in stringsInDescription)
             {
-                registratioNumber = part.Length >= 7 ? part : string.Empty;
+                registratioNumber = part.Length >= 6 ? part : string.Empty;
             }
 
             return registratioNumber;

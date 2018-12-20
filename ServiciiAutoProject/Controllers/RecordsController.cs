@@ -3,6 +3,8 @@ using ServiciiAuto.DataLayer.Models;
 using ServiciiAuto.DataLayer.Repository;
 using ServiciiAutoProject.Helpers;
 using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ServiciiAutoProject.Controllers
@@ -50,15 +52,29 @@ namespace ServiciiAutoProject.Controllers
             return Json(new { clientData = _clientRepository.GetClientById(clientId) });
         }
 
-        public ActionResult ImportRecords(string filePath)
+        public ActionResult ImportRecords(HttpPostedFileBase file)
         {
+            var filePath = string.Empty;
+
+            if (file != null && file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                filePath = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                file.SaveAs(filePath);
+            }
+
             var records = new CsvReaderHelper().GetRecordsFromCsv(filePath);
             foreach (var record in records)
             {
                 _recordRepository.SaveImportedRecord(record);
             }
+            
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
 
-            return Json(new { noRecords = records.Count });
+            return Redirect("Index");
         }
 
         public ActionResult SendMessageToClient(Record record)

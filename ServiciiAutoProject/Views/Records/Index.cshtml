@@ -3,8 +3,19 @@
 }
 <nav class="navbar navbar-inverse nav-bar" style="background:#1E3A6F">
     <div class="container-fluid">
-        <div class="col-lg-6 col-md-6 col-sm-6">
-            <button class="btn btn-danger" id="btnSelectFile" style="margin-top:7px;" onclick="recordsController.selectCsvFileToUpload();"><span class="glyphicon glyphicon glyphicon-upload"></span> Incarca date</button>
+        <div class="col-lg-6 col-md-6 col-sm-6" style="padding-right:15px;margin-top:7px;">
+            @using (Html.BeginForm("ImportRecords", "Records", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="button-group">
+                    <div class="btn-group">
+                        <label class="btn btn-primary btn-file">
+                            <span class="glyphicon glyphicon-file"></span>
+                            Alege fisier <input type="file" id="selectFile" name="file" onchange="recordsController.fileSelected();" />
+                        </label>
+                        <button class="btn btn-success" id="uploadFile" disabled type="submit" onclick="recordsController.showLoadingScreen();"><span class="glyphicon glyphicon-upload"></span> Incarca date</button>
+                    </div>
+                </div>
+            }
         </div>
         <div class="button-group right-side">
             <div class="btn-group" style="padding-right:15px;margin-top:7px;">
