@@ -16,7 +16,11 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult EditClient()
         {
-            return View();
+            if (Session != null && Session["RoleLevel"] != null && int.Parse(Session["RoleLevel"].ToString()) == 1)
+            {
+                return View();
+            }
+            return null;
         }
 
         public ActionResult SaveClient(Client client)

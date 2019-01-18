@@ -1,4 +1,6 @@
 ﻿<!DOCTYPE html>
+@using DataLayer.Models
+
 <html>
 <head>
     <meta charset="utf-8" />
@@ -23,21 +25,74 @@
         <div id="navbar">
             <nav class="navbar navbar-inverse navbar-fixed-top" style="background:#00004c;">
                 <div class="collapse navbar-collapse">
+                    @if (Session != null && Session["RoleLevel"] != null && int.Parse(Session["RoleLevel"].ToString()) == 1)
+                    {
                     <ul class="nav navbar-nav">
-                        <p class="navbar-btn"><a href="#" class="btn btn-warning">Notificari <span class="glyphicon glyphicon-bell"></span></a></p>
+                        <p class="navbar-btn" data-toggle="modal" data-target="#notificationsModal"><a href="#" class="btn btn-warning" >Notificari <i id="bellIcon" class="bell-icon far fa-bell notification-bell-border icon-right-position icon-black badge"> </i></a></p>
                     </ul>
+                    }
                     <ul class="nav navbar-nav navbar-right">
                         <li>@Html.ActionLink("Inregistrari", "Index", "Records")</li>
                         <li>@Html.ActionLink("Clienti", "Index", "Client")</li>
+                        @Html.ActionLink("Logout", "Logout", "Login", null, new { @class = "no-text-decoration logout-button btn btn-primary glyphicon glyphicon-log-out" })
                     </ul>
                     <div class="page-title">@ViewBag.Title</div>
                 </div>
             </nav>
         </div>
     }
-        <div class="container body-content">
-            @RenderBody()
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <div class="modal fade" id="notificationsModal" role="dialog">
+        <div class="modal-dialog modal-dialog-width">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Notificari</h4>
+                </div>
+                <div class="modal-body">
+                    @if (HttpContext.Current.Session["UserId"] != null)
+                    {
+                        if (((List<Notification>)Session["Notifications"]).Count > 0)
+                        {
+                            if (((List<Notification>)Session["Notifications"]).Where(x => x.NotificationType == 1).ToList().Count > 0)
+                            {
+                                <h5>Acte care urmeaza sa expire</h5>
+                                <div class="notification-list">
+                                    @foreach (var notification in ((List<Notification>)Session["Notifications"]).Where(x => x.NotificationType == 1))
+                                    {
+                                        <div class="alert alert-warning notification-padding" role="alert"><a href="@notification.NotificationLink">@notification.NotificationMessage</a></div>
+                                    }
+                                </div><br />
+                            }
+                            if (((List<Notification>)Session["Notifications"]).Where(x => x.NotificationType == 0).ToList().Count > 1)
+                            {
+                                <h5>Acte expirate</h5>
+                                <div class="notification-list">
+                                    @foreach (var notification in ((List<Notification>)Session["Notifications"]).Where(x => x.NotificationType == 0))
+                                    {
+                                        <div class="alert alert-danger notification-padding" role="alert"><a href="@notification.NotificationLink">@notification.NotificationMessage</a></div>
+                                    }
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <h5>Nu exista notificari noi!</h5>
+                        }
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Inchide</button>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
-        @RenderSection("scripts", required: false)
-    </body>
+    </div>
+    @RenderSection("scripts", required: false)
+    <script>
+        var str = @Session["NotificationNumber"];
+        document.styleSheets[0].addRule('i.badge:after', 'content: "' + str + '";');
+    </script>
+</body>
 </html>

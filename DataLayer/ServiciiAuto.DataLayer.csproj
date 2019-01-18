@@ -45,8 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\LoginHelper.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientInformedStatus.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RecordType.cs" />
     <Compile Include="Models\User.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Repository\ClientRepository.cs" />
     <Compile Include="Repository\EnumsRepository.cs" />
     <Compile Include="Repository\LoginRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
     <Compile Include="Repository\RecordRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

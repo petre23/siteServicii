@@ -2,7 +2,9 @@
 using System;
 using ServiciiAuto.DataLayer.Repository;
 using System.Web.Mvc;
-using ServiciiAutoProject.Helpers;
+using DataLayer.Repository;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ServiciiAutoProject.Controllers
 {
@@ -25,6 +27,10 @@ namespace ServiciiAutoProject.Controllers
                     Session["UserId"] = correctUser.Id.ToString();
                     Session["Username"] = correctUser.Username;
                     Session["RoleLevel"] = correctUser.RoleLevel;
+
+                    var notifications = new NotificationRepository().GetNotifications();
+                    Session["NotificationNumber"] = notifications.Any() ? notifications.Count : 0;
+                    Session["Notifications"] = notifications.Any() ? notifications : new List<Notification>();
 
                     //log.Info(string.Format("The user: {0} started a new session", Session["Username"]));
 

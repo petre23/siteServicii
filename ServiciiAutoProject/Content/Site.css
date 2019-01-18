@@ -95,3 +95,27 @@ textarea {
     cursor: inherit;
     display: block;
 }
+
+.no-text-decoration {
+    text-decoration: none !important;
+    color: white !important;
+    height: 35px;
+}
+
+.logout-button {
+    top: 7px!important;
+}
+
+.notification-list {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.modal-dialog-width {
+    width: 50%!important;
+}
+
+.notification-bell-border {
+    border: 1px solid white;
+    background-color: #f0ad4e!important;
+}

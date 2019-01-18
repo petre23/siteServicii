@@ -17,18 +17,22 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult Index()
         {
-            //ImportRecords(@"C:\Users\petre\Downloads\export_365.csv");
             return View();
         }
 
         public ActionResult EditRecord()
         {
-            ViewBag.RecordTypes = _enumsRepository.GetRecordTypes();
-            ViewBag.VehicleTypes = _enumsRepository.GetVehicleTypes();
-            ViewBag.ClientInformedStatueses = _enumsRepository.GetClientInformedStatueses();
-            ViewBag.ClientsForDropDown = _clientRepository.GetAllClients();
+            if (Session != null && Session["RoleLevel"] != null && int.Parse(Session["RoleLevel"].ToString()) == 1)
+            {
+                ViewBag.RecordTypes = _enumsRepository.GetRecordTypes();
+                ViewBag.VehicleTypes = _enumsRepository.GetVehicleTypes();
+                ViewBag.ClientInformedStatueses = _enumsRepository.GetClientInformedStatueses();
+                ViewBag.ClientsForDropDown = _clientRepository.GetAllClients();
 
-            return View();
+                return View();
+            }
+
+            return null;
         }
 
         public ActionResult SaveRecord(Record record)
