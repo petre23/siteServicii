@@ -1,4 +1,5 @@
-﻿using Nexmo.Api;
+﻿using DataLayer.Models;
+using Nexmo.Api;
 using ServiciiAuto.DataLayer.Models;
 using ServiciiAuto.DataLayer.Repository;
 using ServiciiAutoProject.Helpers;
@@ -17,6 +18,8 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.ClientsForDropDown = _clientRepository.GetAllClients();
+            ViewBag.RecordTypes = _enumsRepository.GetRecordTypes(); 
             return View();
         }
 
@@ -41,9 +44,15 @@ namespace ServiciiAutoProject.Controllers
             return Json(new { saved = true });
         }
 
-        public ActionResult GetRecords()
+        public ActionResult GetRecords(string pageIndex, string pageSize, FilterModel filters)
         {
-            return Json(new { records = _recordRepository.GetAllRecords() });
+            return Json(new { records = _recordRepository.GetAllRecords(filters, Convert.ToInt32(pageSize), Convert.ToInt32(pageIndex) - 1) });
+        }
+
+        public ActionResult DeleteRecord(Guid recordId)
+        {
+            _recordRepository.DeleteRecord(recordId);
+            return Json(new { success = "true" });
         }
 
         public ActionResult GetRecordsById(Guid recordId)

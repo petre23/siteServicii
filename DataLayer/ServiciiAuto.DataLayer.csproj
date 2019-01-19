@@ -48,6 +48,7 @@
     <Compile Include="Helpers\LoginHelper.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientInformedStatus.cs" />
+    <Compile Include="Models\FilterModel.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\RecordType.cs" />

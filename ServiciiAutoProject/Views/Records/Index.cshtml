@@ -4,27 +4,87 @@
 @if (Session != null && Session["RoleLevel"] != null && int.Parse(Session["RoleLevel"].ToString()) == 1)
 {
     <nav class="navbar navbar-inverse nav-bar" style="background:#1E3A6F">
-
         <div class="container-fluid">
-            <div class="col-lg-6 col-md-6 col-sm-6" style="padding-right:15px;margin-top:7px;">
-                @using (Html.BeginForm("ImportRecords", "Records", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <div class="button-group">
-                        <div class="btn-group">
-                            <label class="btn btn-primary btn-file">
-                                <span class="glyphicon glyphicon-file"></span>
-                                Alege fisier <input type="file" id="selectFile" name="file" onchange="recordsController.fileSelected();" />
-                            </label>
-                            <button class="btn btn-success" id="uploadFile" disabled type="submit" onclick="recordsController.showLoadingScreen();"><span class="glyphicon glyphicon-upload"></span> Incarca date</button>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6" style="padding-right:15px;margin-top:7px;">
+                    @using (Html.BeginForm("ImportRecords", "Records", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="button-group">
+                            <div class="btn-group">
+                                <label class="btn btn-primary btn-file">
+                                    <span class="glyphicon glyphicon-file"></span>
+                                    Alege fisier <input type="file" id="selectFile" name="file" onchange="recordsController.fileSelected();" />
+                                </label>
+                                <button class="btn btn-success" id="uploadFile" disabled type="submit" onclick="recordsController.showLoadingScreen();"><span class="glyphicon glyphicon-upload"></span> Incarca date</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="button-group right-side">
+                    <div class="btn-group" style="padding-right:15px;margin-top:7px;">
+                        <button class="btn btn-success" id="addButton" onclick="recordsController.addNewRecord();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
+                        <button class="btn btn-success" id="editButton" disabled onclick="recordsController.editRecord();"><span class="glyphicon glyphicon glyphicon-edit"></span> Editeaza</button>
+                        <button class="btn btn-danger" id="deleteButton" disabled onclick="recordsController.deleteRercord();"><span class="glyphicon glyphicon glyphicon-remove"></span> Sterge</button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row fields-padding">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <div class="row date-filters">
+                            <div class="col-md-4 no-space-cols">
+                                <label class="labels">Data expirare</label>
+                            </div>
+                            <div class="col-md-4 no-space-cols">
+                                <input class="form-control" autocomplete="off" placeholder="De la" id="expirationDateFrom" type="text" required />
+                            </div>
+                            <div class="col-md-4 no-space-cols">
+                                <input class="form-control" autocomplete="off" placeholder="Pana la" id="expirationDateUntil" type="text" required />
+                            </div>
                         </div>
                     </div>
-                }
-            </div>
-            <div class="button-group right-side">
-                <div class="btn-group" style="padding-right:15px;margin-top:7px;">
-                    <button class="btn btn-success" id="addButton" onclick="recordsController.addNewRecord();"><span class="glyphicon glyphicon glyphicon-plus"></span>Adauga</button>
-                    <button class="btn btn-success" id="editButton" disabled onclick="recordsController.editRecord();"><span class="glyphicon glyphicon glyphicon-edit"></span> Editeaza</button>
-                    <button class="btn btn-danger" id="deleteButton" disabled onclick="recordsController.deleteRercord();"><span class="glyphicon glyphicon glyphicon-remove"></span> Sterge</button>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-6 no-space-cols">
+                                <input class="form-control" list="clientList" name="client" id="clientName" placeholder="Client" required>
+                                <datalist name="clientList" id="clientList">
+                                    <option selected disabled hidden style='display: none' value=''></option>
+                                    @foreach (var client in ViewBag.ClientsForDropDown)
+                                    {
+                                        <option data-value="@client.Id">@client.Name</option>
+                                    }
+                                </datalist>
+                            </div>
+                            <div class="col-md-6 no-space-cols">
+                                <select class="form-control" id="recordType" required>
+                                    <option selected disabled hidden style='display: none' value='' >Tip Inregistrare</option>
+                                    @foreach (var record in ViewBag.RecordTypes)
+                                    {
+                                        <option value="@record.Id" id="@record.Id">@record.TypeName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-6 no-space-cols">
+                                <input class="form-control" autocomplete="off" placeholder="Nr. telefon" id="phoneNumber" type="text" required />
+                            </div>
+                            <div class="col-md-6 no-space-cols">
+                                <input class="form-control" autocomplete="off" placeholder="Nr. inmatriculare" id="carRegistrationNumber" type="text" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="button-group right-side">
+                            <div class="btn-group">
+                                <button class="btn btn-default right-side" id="filterButton" onclick="recordsController.initGrid();"><span class="glyphicon glyphicon glyphicon-filter"></span>Filtreaza</button>
+                                <button class="btn btn-primary" id="deleteButton" title="Sterge filtre" onclick="recordsController.resetFilters();"><span class="glyphicon glyphicon glyphicon-remove-circle"></span></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

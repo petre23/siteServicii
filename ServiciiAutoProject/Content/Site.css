@@ -119,3 +119,22 @@ textarea {
     border: 1px solid white;
     background-color: #f0ad4e!important;
 }
+
+.no-space-cols {
+    margin: 0 !important;
+    padding: 2px !important;
+}
+
+.labels{
+    text-align:right;
+    color: white;
+    margin-top: 5px;
+}
+
+.date-filters{
+    border: 1px #808080 solid;
+}
+
+.no-padding {
+    padding: 0!important;
+}

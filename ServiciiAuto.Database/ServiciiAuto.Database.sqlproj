@@ -68,7 +68,7 @@
     <Build Include="dbo\StoredProcedures\GetAllRecords.sql" />
     <Build Include="dbo\Tables\RecordTypes.sql" />
     <Build Include="dbo\StoredProcedures\GetRecordById.sql" />
-    <Build Include="dbo\StoredProcedures\DeleteRecords.sql" />
+    <Build Include="dbo\StoredProcedures\DeleteRecord.sql" />
     <Build Include="dbo\StoredProcedures\SaveRecords.sql" />
     <Build Include="dbo\Tables\VehicleType.sql" />
     <Build Include="dbo\Tables\Users.sql" />

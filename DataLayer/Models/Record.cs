@@ -38,5 +38,7 @@ namespace ServiciiAuto.DataLayer.Models
         public int? ClientInformedStatusId { get; set; }
         [DataMember]
         public string ClientInformedStatusName { get; set; }
+        [DataMember]
+        public int TotalRows { get; set; }
     }
 }

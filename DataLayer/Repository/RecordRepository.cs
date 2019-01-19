@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
+using DataLayer.Models;
 
 namespace ServiciiAuto.DataLayer.Repository
 {
     public class RecordRepository: BaseRepository
     {
-        public List<Models.Record> GetAllRecords()
+        public List<Models.Record> GetAllRecords(FilterModel filters, int pageSize = 50, int pageNumber = 0)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("GetAllRecords", con))
                 {
+                    var from = filters.ExpirationDateFrom.HasValue ? filters.ExpirationDateFrom.Value : DateTime.Parse("01/01/2010");
+                    var until = filters.ExpirationDateUntil.HasValue ? filters.ExpirationDateUntil.Value : DateTime.Parse("01/01/2090");
+
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PageNumber", pageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+                    cmd.Parameters.AddWithValue("@StartDate", from);
+                    cmd.Parameters.AddWithValue("@EndDate", until);
+                    cmd.Parameters.AddWithValue("@ClientId", filters.ClientId);
+                    cmd.Parameters.AddWithValue("@CarRegistrationNumber", filters.CarRegistrationNumber);
+                    cmd.Parameters.AddWithValue("@RecordType", filters.RecordType);
+                    cmd.Parameters.AddWithValue("@PhoneNumber", filters.PhoneNumber);
                     con.Open();
                     var reader = cmd.ExecuteReader();
                     var records = new List<Models.Record>();
@@ -36,6 +48,7 @@ namespace ServiciiAuto.DataLayer.Repository
                             VehicleTypeId = string.IsNullOrEmpty(reader["VehicleType"].ToString()) ? (int?)null : int.Parse(reader["VehicleType"].ToString()),
                             VehicleTypeName = reader["VehicleTypeName"].ToString(),
                             ClientInformedStatusName = reader["ClientInformedStatusName"].ToString(),
+                            TotalRows = int.Parse(reader["TotalRows"].ToString()),
                         };
                         records.Add(record);
                     }
@@ -144,6 +157,21 @@ namespace ServiciiAuto.DataLayer.Repository
                 }
             }
             return 0;
+        }
+
+        public void DeleteRecord(Guid recordId)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("DeleteRecord", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RecordId", recordId);
+                    con.Open();
+                    var reader = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
         }
     }
 }

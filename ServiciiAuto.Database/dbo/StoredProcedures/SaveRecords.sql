@@ -10,7 +10,7 @@
 	@Email NVARCHAR(255) = NULL,
 	@PhoneNumber NVARCHAR(255),
 	@ClientName NVARCHAR(300),
-	@VehicleTypeId INT,
+	@VehicleTypeId INT = NULL,
 	@ModifiedByUser UNIQUEIDENTIFIER,
 	@ClientInformedStatusId int = NULL
 AS

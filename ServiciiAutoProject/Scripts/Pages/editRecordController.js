@@ -109,7 +109,6 @@
 
                 if ($option.text() === label) {
                     editRecordController.clientId = $option.attr('data-value');
-                    debugger;
                     editRecordController.getClientData();
                     break;
                 }

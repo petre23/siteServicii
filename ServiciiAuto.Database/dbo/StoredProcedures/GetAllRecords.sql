@@ -1,7 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[GetAllRecords]
-	@startDate DateTime = null,
-	@endDate Datetime = null,
-	@recordType int = null
+	@StartDate DateTime = null,
+	@EndDate Datetime = null,
+	@RecordType int = null,
+	@ClientId UNIQUEIDENTIFIER = null,
+	@PhoneNumber nvarchar(30) = null,
+	@CarRegistrationNumber nvarchar(50) = null,
+	@PageSize int = 50,
+	@PageNumber int = 0
 AS
 BEGIN
 	SELECT r.Id,
@@ -21,13 +26,30 @@ BEGIN
 		   r.Id,
 		   u.Username,
 		   r.ClientInformedStatus AS ClientInformedStatusId,
-		   cis.StatusName as ClientInformedStatusName
+		   cis.StatusName as ClientInformedStatusName,
+		   (SELECT Count(*) FROM dbo.Records r
+				LEFT JOIN dbo.Clients c ON c.Id = r.ClientId
+				LEFT JOIN dbo.RecordTypes rt ON rt.Id = r.RecordType
+				LEFT JOIN dbo.VehicleType vt ON vt.Id = r.VehicleType
+				INNER JOIN dbo.Users u ON u.Id = r.ModifiedByUser
+				LEFT JOIN dbo.ClientInformedStatus cis ON cis.Id = r.ClientInformedStatus
+				WHERE (@RecordType IS NULL OR r.RecordType = @RecordType)
+				AND ((@startDate IS NULL AND @endDate IS NULL) OR  r.ExpirationDate BETWEEN @startDate AND @endDate)
+				AND (@CarRegistrationNumber IS NULL OR r.CarRegistartionNumber like '%'+ (CASE WHEN @CarRegistrationNumber IS NOT NULL THEN @CarRegistrationNumber ELSE '' END ) +'%')
+				AND (@PhoneNumber IS NULL OR c.PhoneNumber like '%'+ (CASE WHEN @PhoneNumber IS NOT NULL THEN @PhoneNumber ELSE '' END ) +'%')
+				AND (@ClientId IS NULL OR r.ClientId = @ClientId)) AS TotalRows
 	FROM dbo.Records r
 	LEFT JOIN dbo.Clients c ON c.Id = r.ClientId
 	LEFT JOIN dbo.RecordTypes rt ON rt.Id = r.RecordType
 	LEFT JOIN dbo.VehicleType vt ON vt.Id = r.VehicleType
 	INNER JOIN dbo.Users u ON u.Id = r.ModifiedByUser
 	LEFT JOIN dbo.ClientInformedStatus cis ON cis.Id = r.ClientInformedStatus
-	--WHERE (@recordType IS NULL OR r.RecordType = @recordType)
-	--AND (r.ExpirationDate BETWEEN @startDate AND @endDate)
+	WHERE (@RecordType IS NULL OR r.RecordType = @RecordType)
+	AND ((@startDate IS NULL AND @endDate IS NULL) OR  r.ExpirationDate BETWEEN @startDate AND @endDate)
+	AND (@CarRegistrationNumber IS NULL OR r.CarRegistartionNumber like '%'+ (CASE WHEN @CarRegistrationNumber IS NOT NULL THEN @CarRegistrationNumber ELSE '' END ) +'%')
+	AND (@PhoneNumber IS NULL OR c.PhoneNumber like '%'+ (CASE WHEN @PhoneNumber IS NOT NULL THEN @PhoneNumber ELSE '' END ) +'%')
+	AND (@ClientId IS NULL OR r.ClientId = @ClientId)
+	ORDER BY ExpirationDate
+	OFFSET (@PageSize*@PageNumber) ROWS
+	FETCH NEXT @PageSize ROWS ONLY;
 END

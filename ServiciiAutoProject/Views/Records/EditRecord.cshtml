@@ -101,7 +101,7 @@
                                     <label>Tip vehicul</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control" placeholder="Tip vehicul" id="vehicleType" required>
+                                    <select class="form-control" placeholder="Tip vehicul" id="vehicleType">
                                         <option selected disabled hidden style='display: none' value=''></option>
                                         @foreach (var vehicle in ViewBag.VehicleTypes)
                                         {
@@ -187,7 +187,7 @@
         <div class="col-sm-6 col-lg-6 col-md-6">
             <div class="btn-group right-side">
                 <button type="submit" id="btnSaveRecord" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Salvare</button>
-                <button type="submit" id="btnSaveRecordAndAddAnother" onclick="editRecordController.saveRecordAndAddNew();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Salvare si reutilizare</button>
+                @*<button type="submit" id="btnSaveRecordAndAddAnother" onclick="editRecordController.saveRecordAndAddNew();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>Salvare si reutilizare</button>*@
                 <button type="button" onclick="editRecordController.cancelEdit();" id="btnCancelSaveDrive" class="btn btn-danger"><span class="glyphicon glyphicon glyphicon-remove"></span> Anulare</button>
             </div>
         </div>

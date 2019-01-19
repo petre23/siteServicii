@@ -10,7 +10,7 @@ namespace DataLayer.Repository
     {
         public List<Notification> GetNotifications()
         {
-            var records = new RecordRepository().GetAllRecords();
+            var records = new RecordRepository().GetAllRecords(new FilterModel(),99999,0);
             var notifications = new List<Notification>();
 
             foreach (var record in records)
@@ -50,7 +50,7 @@ namespace DataLayer.Repository
             }
             else if (!string.IsNullOrEmpty(record.RecordTypeName) && record.RecordTypeName == "ITP")
             {
-                if (record.CreationDate <= DateTime.Now)
+                if (record.ExpirationDate <= DateTime.Now)
                 {
                     notification.NotificationDate = record.CreationDate;
                     notification.NotificationLink = string.Format(recordLink, record.Id);
