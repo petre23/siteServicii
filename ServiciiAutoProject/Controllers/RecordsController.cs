@@ -40,7 +40,8 @@ namespace ServiciiAutoProject.Controllers
 
         public ActionResult SaveRecord(Record record)
         {
-            _recordRepository.SaveRecord(record);
+            var userId = Session["UserId"].ToString();
+            _recordRepository.SaveRecord(record, Guid.Parse(userId));
             return Json(new { saved = true });
         }
 
@@ -79,7 +80,7 @@ namespace ServiciiAutoProject.Controllers
             var records = new CsvReaderHelper().GetRecordsFromCsv(filePath);
             foreach (var record in records)
             {
-                _recordRepository.SaveImportedRecord(record);
+                _recordRepository.SaveImportedRecord(record, Session["UserId"].ToString());
             }
             
             if (System.IO.File.Exists(filePath))

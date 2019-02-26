@@ -80,9 +80,10 @@
     <Build Include="dbo\StoredProcedures\GetClientById.sql" />
     <Build Include="dbo\StoredProcedures\SaveClient.sql" />
     <Build Include="dbo\StoredProcedures\SaveImportedRecord.sql" />
+    <Build Include="dbo\StoredProcedures\DeleteClientById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dbo\Scripts\DefaultDataInsert.sql" />
-    <None Include="dbo\StoredProcedures\Login.sql" />
+    <Build Include="dbo\StoredProcedures\Login.sql" />
   </ItemGroup>
 </Project>

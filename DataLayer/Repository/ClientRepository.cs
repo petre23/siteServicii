@@ -90,5 +90,20 @@ namespace ServiciiAuto.DataLayer.Repository
                 }
             }
         }
+
+        public void DeleteClient(Guid clientId)
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("DeleteClientById", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@clientId", clientId);
+                    con.Open();
+                    var reader = cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+        }
     }
 }

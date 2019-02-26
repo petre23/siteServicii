@@ -99,7 +99,7 @@ namespace ServiciiAuto.DataLayer.Repository
             }
         }
 
-        public Guid SaveRecord(Models.Record record)
+        public Guid SaveRecord(Models.Record record,Guid userId)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
@@ -123,7 +123,7 @@ namespace ServiciiAuto.DataLayer.Repository
                     cmd.Parameters.AddWithValue("@RecordType", record.RecordType);
                     cmd.Parameters.AddWithValue("@VehicleTypeId", record.VehicleTypeId);
                     cmd.Parameters.AddWithValue("@ClientInformedStatusId", record.ClientInformedStatusId);
-                    cmd.Parameters.AddWithValue("@ModifiedByUser", Guid.Parse("D1839C31-D29F-4381-A105-BF3B82C664EE"));
+                    cmd.Parameters.AddWithValue("@ModifiedByUser", userId);
                     con.Open();
                     var reader = cmd.ExecuteNonQuery();
                     con.Close();
@@ -133,7 +133,7 @@ namespace ServiciiAuto.DataLayer.Repository
             }
         }
 
-        public int SaveImportedRecord(Models.Record record)
+        public int SaveImportedRecord(Models.Record record,string userId)
         {
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
@@ -149,7 +149,7 @@ namespace ServiciiAuto.DataLayer.Repository
                     cmd.Parameters.AddWithValue("@Email", record.Email);
                     cmd.Parameters.AddWithValue("@PhoneNumber", record.PhoneNumber);
                     cmd.Parameters.AddWithValue("@ClientName", record.ClientName);
-                    cmd.Parameters.AddWithValue("@ModifiedByUser", Guid.Parse("D1839C31-D29F-4381-A105-BF3B82C664EE"));
+                    cmd.Parameters.AddWithValue("@ModifiedByUser", Guid.Parse(userId));
 
                     con.Open();
                     cmd.ExecuteNonQuery();

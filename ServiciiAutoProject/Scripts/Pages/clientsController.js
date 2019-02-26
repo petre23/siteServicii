@@ -76,7 +76,7 @@ var clientsController =
     },
     confirmDeleteClient: function () {
         var txt;
-        var r = confirm("Sunteti sigur ca vreti sa stergeti acesta inregistrare?");
+        var r = confirm("Sunteti sigur ca vreti sa stergeti acesta client?\nToate inregistrarile care apartin acestui client vor fi de asemenea sterse!");
         if (r == true) {
             return true;
         } else {

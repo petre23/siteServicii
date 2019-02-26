@@ -38,5 +38,11 @@ namespace ServiciiAutoProject.Controllers
         {
             return Json(new { client = _clientRepository.GetClientById(clientId) });
         }
+
+        public ActionResult DeleteClient(Guid clientId)
+        {
+            _clientRepository.DeleteClient(clientId);
+            return Json(new { success = true });
+        }
     }
 }
